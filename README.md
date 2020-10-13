@@ -13,5 +13,6 @@ docker run -d -e TOKEN={bot token} cleaner
 
 * `^!clean user @user#tag` - cleans all the messages sent by specified user
 * `^!clean starts !` - cleans all the messages that starts with specified symbol
+* `^!clean last [number]` - cleans latest number messages (Default number is 25)
 
 All of the commands that are to be executed needs the bot to have read message history and manage messages permissions to be set to true
