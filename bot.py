@@ -19,6 +19,11 @@ async def clean(ctx: Context):
         await ctx.send_help(clean)
     await ctx.message.delete()
 
+@clean.command(description="Deletes latest messages", brief="Deletes latest messages")
+@commands.bot_has_permissions(manage_messages=True, read_message_history=True)
+async def last(ctx: Context, count: int = 25):
+    await cleaner(ctx, lambda x: True, count)
+
 @clean.command(description="Deletes mentioned user's messages", brief="Deletes mentioned user's messages")
 @commands.bot_has_permissions(manage_messages=True, read_message_history=True)
 async def user(ctx: Context, target: discord.Member, count: int = 25):
@@ -36,7 +41,7 @@ async def cleaner(ctx: Context, predicate: callable, count: int):
     date = datetime.today() - timedelta(days=14)
     channel: discord.TextChannel = ctx.channel
     remove_messages = list()
-    async for message in channel.history(after=date).filter(predicate):
+    async for message in channel.history(after=date, oldest_first=False).filter(predicate):
         remove_messages.append(message)
         if len(remove_messages) >= count:
             break

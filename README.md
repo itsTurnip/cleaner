@@ -5,8 +5,8 @@ Simple discord bot for cleaning chat from users' and bot command messages.
 Host it yourself with docker:
 
 ```console
-docker build -t cleaner-bot .
-docker run -d -e TOKEN={bot token} cleaner-bot
+docker build -t cleaner .
+docker run -d -e TOKEN={bot token} cleaner
 ```
 
 ## Command list
