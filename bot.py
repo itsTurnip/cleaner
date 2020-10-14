@@ -14,6 +14,7 @@ async def globally_block_dms(ctx):
 
 
 @bot.group()
+@commands.has_permissions(manage_messages=True)
 async def clean(ctx: Context):
     if ctx.invoked_subcommand is None:
         await ctx.send_help(clean)
@@ -21,17 +22,17 @@ async def clean(ctx: Context):
 
 @clean.command(description="Deletes latest messages", brief="Deletes latest messages")
 @commands.bot_has_permissions(manage_messages=True, read_message_history=True)
-async def last(ctx: Context, count: int = 25):
+async def last(ctx: Context, count: int=25):
     await cleaner(ctx, lambda x: True, count)
 
 @clean.command(description="Deletes mentioned user's messages", brief="Deletes mentioned user's messages")
 @commands.bot_has_permissions(manage_messages=True, read_message_history=True)
-async def user(ctx: Context, target: discord.Member, count: int = 25):
+async def user(ctx: Context, target: discord.Member, count: int=25):
     await cleaner(ctx, lambda x: x.author.id == target.id, count)
 
 @clean.command(description="Deletes messages that start with specified symbols", brief="Deletes messages that start with specified symbols")
 @commands.bot_has_permissions(manage_messages=True, read_message_history=True)
-async def starts(ctx: Context, start: str, count: int = 25):
+async def starts(ctx: Context, start: str, count: int=25):
     await cleaner(ctx, lambda x: x.clean_content.startswith(start), count)
 
 async def cleaner(ctx: Context, predicate: callable, count: int):
@@ -50,4 +51,3 @@ async def cleaner(ctx: Context, predicate: callable, count: int):
         await ctx.send("Done", delete_after=5)
     else:
         await ctx.send("Did not find any messages to delete.\nI can't delete messages that are older then 14 days.", delete_after=7)
-        return
