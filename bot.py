@@ -50,4 +50,4 @@ async def cleaner(ctx: Context, predicate: callable, count: int):
         await channel.delete_messages(remove_messages)
         await ctx.send("Done", delete_after=5)
     else:
-        await ctx.send("Did not find any messages to delete.\nI can't delete messages that are older then 14 days.", delete_after=7)
+        await ctx.send("Did not find any messages to delete.\nI can't delete messages older than 14 days.", delete_after=7)
