@@ -1,6 +1,6 @@
 FROM python:3.8-alpine
 
-RUN apk add --no-cache gcc libffi-dev musl-dev openssl-dev
+RUN apk add --no-cache gcc libffi-dev musl-dev openssl-dev cargo
 
 RUN pip install --no-cache-dir -U pip \
     && pip install --no-cache-dir poetry==1.0.9
